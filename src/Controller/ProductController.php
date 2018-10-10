@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Entity\Category;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,89 +45,13 @@ class ProductController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
-    /**
-     * @Route("/create", name="product_create", methods="GET")
-     */
-    public function createAction() {
 
-        $category = new Category;
-        $category->setName('Computer Peripherals.');
-        $product = new Product();
-        $product->setName('plug');
-        $product->setPrice(1.96);
-        $product->setDescription('ok');
-        $product->setCategory($category);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($category);
-        $em->persist($product);
-        $em->flush();
-
-        return new Response('Saved new product with id '. $product->getID());
-    }
-
-    /**
-     * @Route("/show_name/{productID}", name="show_name")
-     */
-    public function showName($productID) {
-        $product = $this->getDoctrine()
-                ->getRepository('App:Product')
-                ->find($productID);
-        
-        if (!$product) {
-            throw $this->createNotFoundException(
-                    'no product found for '.$productID
-                );
-        } else {
-            return $this->render('product/showname.html.twig', ["product" => $product]);
-        }
-        
-    }
-    
-    /**
-     * @Route("/inc_name", name="inc_name")
-     */
-    public function incName(Request $request) {
-        $productID = $request->query->get("id");
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('App:Product')->find($productID);
-        
-        if (!$product) {
-            throw $this->createNotFoundException(
-                    'no product found for '. $productID
-                    );
-        }
-        
-        $product->setName($product->getName() . "+");
-        
-        $em->flush();
-        
-        return $this->redirectToRoute("show_name", ["productID" => $productID]);
-        
-    }
-
-    /**
-     * @Route("/list_by_name", name="list_by_name")
-     */
-    public function listByName() {
-        
-        $em = $this->getDoctrine()->getManager();
-
-        return $this->render('product/list_by_name.html.twig', ['product_list' => 
-            $em->getRepository('App:Product')->findAllOrderdByName()
-        ]);
-        
-    }
-    
     /**
      * @Route("/{id}", name="product_show", methods="GET")
      */
     public function show(Product $product): Response
     {
-        return $this->render('product/show.html.twig', [
-            'product' => $product
-        ]);
+        return $this->render('product/show.html.twig', ['product' => $product]);
     }
 
     /**
