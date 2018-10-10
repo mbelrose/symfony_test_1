@@ -47,4 +47,12 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function findAllOrderdByName() {
+        return $this->getEntityManager()
+                ->createQuery(
+                        'SELECT p from App:Product p ORDER BY p.name ASC')
+                ->getResult();
+    }
+
 }
