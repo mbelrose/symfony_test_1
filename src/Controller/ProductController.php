@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Category;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,16 +52,20 @@ class ProductController extends AbstractController
      */
     public function createAction() {
 
+        $category = new Category;
+        $category->setName('Computer Peripherals.');
         $product = new Product();
-        $product->setName('mouse');
-        $product->setPrice(19.97);
-        $product->setDescription('Ergonomic');
+        $product->setName('plug');
+        $product->setPrice(1.96);
+        $product->setDescription('ok');
+        $product->setCategory($category);
 
         $em = $this->getDoctrine()->getManager();
+        $em->persist($category);
         $em->persist($product);
         $em->flush();
 
-        return new Response('Saved new product with id'. $product->getID());
+        return new Response('Saved new product with id '. $product->getID());
     }
 
     /**
