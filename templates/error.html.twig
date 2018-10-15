@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<ul>
+{% for error in error_list %}
+    <li>{{ error.message }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

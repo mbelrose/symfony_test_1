@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 
 /**
  * @ApiResource()
@@ -30,6 +33,7 @@ class Product
     private $name;
 
     /**
+     * @Assert\Choice(choices = {"one", "two"}, message = "one or two" )
      * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
      */
     private $price;
