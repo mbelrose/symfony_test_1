@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Entity\Category;
 use App\Repository\ProductRepository;
 use App\Entity\CagetoryRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +40,7 @@ class MainController extends AbstractController
         $category->setName('cat_'.self::rWord(5));
         $product = new Product();
         $product->setName('prod_'.self::rWord(5));
-        $product->setName($request->query->get('pname')); //
+        $product->setName($request->query->get('pname')); // stuff
         $product->setPrice(rand(0, 20));
         $product->setDescription('desc_'.self::rWord(5));
         $product->setCategory($category);
@@ -51,6 +52,11 @@ class MainController extends AbstractController
 
         $validator = Validation::createValidator();
         $errors = $validator->validate($product);
+        $emailConstraint = new Assert\Email(); // stuff
+        $emailConstraint->message = 'invalid email'; // stuff
+//        $errors = $validator->validate($product->getName(), $emailConstraint);
+        
+
         
         if (count($errors) > 0) {
             return $this->render('error.html.twig',['error_list' => $errors]);
@@ -58,6 +64,7 @@ class MainController extends AbstractController
             return $this->render('generic.html.twig', [ 'text' =>
                       'Saved new product with id '. $product->getID()
                     . ' Saved new category with id '. $product->getCategory()->getID()
+                    . ' errors ' . count($errors)
             ]);
         }
     }

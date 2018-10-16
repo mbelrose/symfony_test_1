@@ -28,12 +28,12 @@ class Product
     private $category;
 
     /**
+     * @Assert\Email(message = "not valid eeeemail")
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $name;
-
+    
     /**
-     * @Assert\Choice(choices = {"one", "two"}, message = "one or two" )
      * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
      */
     private $price;
