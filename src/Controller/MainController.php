@@ -8,7 +8,7 @@ use App\Repository\ProductRepository;
 use App\Entity\CagetoryRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Validation;
 /**
  * @Route("/product")
  */
-class MainController extends AbstractController
+class MainController extends Controller
 {
 
     private static function rWord (int $length) : string {

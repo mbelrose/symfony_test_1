@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div>
+{{ form_label(form.task) }}
+{{ form_row(form.task) }}
+{{ form_widget(form.task) }}
+</div>
+<div>
+{{ form_label(form.dueDate) }}
+{{ form_row(form.dueDate) }}
+{{ form_widget(form.dueDate) }}
+</div>
+<div class="category">
+Category: 
+{{ form_label(form.taskCategory.name) }}
+{{ form_row(form.taskCategory.name) }}
+{{ form_widget(form.taskCategory.name) }}
+</div>
+<div>
+{{ form_widget(form.keepEditing) }}
+{{ form_widget(form.saveAndAdd) }}
+</div>
+{{ form_end(form) }}
+{% endblock %}
